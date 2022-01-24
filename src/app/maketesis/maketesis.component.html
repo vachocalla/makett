@@ -1,0 +1,104 @@
+<main class="mycontainer">
+    <div class="mysidebar">
+        <div class="search" >
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Buscar...." aria-label="Buscar...." aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </div>
+        <div class="search">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#agregarItem">
+                Agregar
+            </button>
+        </div>
+        <div class="itemsgroup">
+            <div *ngFor="let res of resultadosBusqueda"> 
+                <!-- <div class="drag-handler"></div> --> 
+                <div class="itemdrag" draggable="true" (dragstart)="drag($event)" [innerHTML]="res.description">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mycontent"> 
+        <!-- <angular-editor  id="editor1" 
+            [config]="editorConfig" [(ngModel)]="htmlContent"></angular-editor> -->
+          <div id="opened" class="board-body" (drop)="drop($event)" 
+          (dragover)="allowDrop($event)">
+              <div class="card bg-light-blue mb-2" id="drag1" draggable="true" (dragstart)="drag($event)">
+                  draggable <strong>jeje</strong> card 1
+              </div>
+          </div>
+
+          <angular-editor  id="editor1" 
+          
+            [config]="editorConfig" [(ngModel)]="htmlContent"></angular-editor>
+        <button (click)="generarDoc()" >Generar</button>
+    </div>
+</main>
+
+<!-- Button trigger modal -->
+  
+  <!-- Modal -->
+<!-- <div class="modal fade" id="agregarItem" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Agregar Item</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form >
+          <div class="mb-3">
+              <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="Nombre">
+            </div>
+            <div class="mb-3">
+              <label for="exampleFormControlTextarea1" class="form-label">Contenido</label>
+              <angular-editor  id="editor2" 
+                  [config]="editorConfig" [(ngModel)]="htmlContent"></angular-editor>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Agregar</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- The sidebar -->
+<!-- <div class="sidebar">
+    <div>Hola</div>
+    <div draggable="true" (dragstart)="drag($event)">Hola2 <strong>GGG</strong> </div>
+    <div draggable="true" (dragstart)="drag($event)"><strong><u>QUe la vita </u></strong>vivire </div>
+
+    <div class="drag-handler" draggable="true" (dragstart)="drag($event)"><strong><u>QUe la vita </u></strong>vivire </div>
+</div>
+<div class="content"> 
+    <angular-editor  id="editor1" 
+        [config]="editorConfig" [(ngModel)]="htmlContent"></angular-editor>
+
+        <div>{{htmlContent}}</div>
+    <button (click)="generarDoc()" >Generar</button>
+</div> -->
+
+<!-- (mouseover)="oki()" (mouseout)="okio()" -->
+    <!-- (focus)="oki()" (focusout)="okio()" -->
+    <!-- (mouseover)="oki()" (focusout)="okio()" -->
+    <!-- (focus)="oki()" (mouseover)="oki()" (focusout)="okio()" -->
+
+
+<!-- <div id="opened" class="board-body" (drop)="drop($event)" (dragover)="allowDrop($event)">
+        <div class="card bg-light-blue mb-2" id="drag1" draggable="true" (dragstart)="drag($event)">
+            draggable <strong>jeje</strong> card 1
+        </div>
+    </div>
+    <div id="responded" class="board-body" (drop)="drop($event)" (dragover)="allowDrop($event)">
+        <div class="card bg-light-blue mb-2" id="drag2" draggable="true" (dragstart)="drag($event)">
+            draggable card 2
+        </div>
+    </div> -->
