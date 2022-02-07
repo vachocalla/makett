@@ -1,0 +1,161 @@
+<main class="mycontainer">
+    <div class="mysidebar">
+        <div class="search">
+            <form class="row g-3" [formGroup]="searchContent" (ngSubmit)="onSubmitSearchContent()">
+                <div class="col-auto">
+                    <label for="search" class="visually-hidden">Nombre de Proyecto</label>
+                    <input type="text" class="form-control-plaintext" formControlName="search"
+                        placeholder="Buscar Contenido...">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary mb-3">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="itemsgroup">
+            <div *ngFor="let res of resultadosBusqueda">
+                <div class="itemdrag" draggable="true" (dragstart)="drag($event)" [innerHTML]="res['content']">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mycontent">
+
+        <div class="text-center" *ngIf="!structProjectLoadedOk">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+        <div class="text-center" *ngIf="structProjectLoadedOk">
+            <button class="btn btn-primary" (click)="generarDoc()">Generar Doc</button>
+        </div>
+
+        <div id="stepper1" class="bs-stepper" *ngIf="structProjectLoadedOk">
+            <div class="bs-stepper-header" role="tablist">
+                <div *ngFor="let s of structProjectLoaded['content'];" class="step" [attr.data-target]="'#'+s['id']">
+                    <button type="button" class="step-trigger" role="tab" [attr.aria-controls]="s['id']"
+                        [id]="s['id']+'-trigger'">
+                        <span class="bs-stepper-circle">{{s['step']}}</span>
+                        <span class="bs-stepper-label">{{s['name']}}</span>
+                    </button>
+                </div>
+            </div>
+            <div class="bs-stepper-content">
+                <div *ngFor="let s of structProjectLoaded['content']; let i = index;" [id]="s['id']" class="content"
+                    role="tabpanel" [attr.aria-labelledby]="s['id']+'-trigger'">
+                    <div class="text-center">
+                        <button class="btn btn-primary" (click)="stepperPrevious(s, i)" *ngIf="i>0">Previous</button>
+                        <button class="btn btn-primary" (click)="stepperNext(s, i)"
+                            *ngIf="i<(structProjectLoaded['content'].length-1)">Next</button>
+                    </div>
+
+                    <div [id]="'makeStructProjectCSPdiv'+s['step']">
+                        <angular-editor [id]="'makeStructProjectCSP'+s['step']" [config]="editorConfigMSP"
+                        [(ngModel)]="htmlContentMSP"></angular-editor>
+                    </div>
+                    
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+
+
+
+
+
+
+<!-- <div id="stepper1" class="bs-stepper">
+    <div class="bs-stepper-header" role="tablist">
+        <div *ngFor="let s of structProjectLoaded['content'];" class="step" [attr.data-target]="'#'+s['id']" >
+            <button type="button" class="step-trigger" role="tab" [attr.aria-controls]="s['id']" 
+            [id]="s['id']+'-trigger'" >
+                <span class="bs-stepper-circle">{{s['step']}}</span>
+                <span class="bs-stepper-label">{{s['name']}}</span>
+            </button>
+        </div>
+    </div>
+    <div class="bs-stepper-content">
+        <div *ngFor="let s of structProjectLoaded['content']; let i = index;" [id]="s['id']" class="content" role="tabpanel" 
+        [attr.aria-labelledby]="s['id']+'-trigger'" >
+            {{s['step']}}
+            <angular-editor [id]="'makeStructProjectCSP'+s['step']" 
+            [config]="editorConfigMSP"
+            [(ngModel)]="htmlContentMSP"></angular-editor>
+            
+            <div class="text-center">
+                <button class="btn btn-primary" (click)="stepperPrevious(s, i)" *ngIf="i>0">Previous</button>
+                <button class="btn btn-primary" (click)="stepperNext(s, i)" *ngIf="i<(structProjectLoaded['content'].length-1)">Next</button>
+            </div>
+            
+        </div>
+    </div>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div id="stepper1" class="bs-stepper">
+    <div class="bs-stepper-header" role="tablist">
+        <div *ngFor="let s of steps;" class="step" [attr.data-target]="'#'+s['id']" >
+            <button type="button" class="step-trigger" role="tab" [attr.aria-controls]="s['id']" 
+            [id]="s['id']+'-trigger'" >
+                <span class="bs-stepper-circle">{{s['step']}}</span>
+                <span class="bs-stepper-label">{{s['name']}}</span>
+            </button>
+        </div>
+    </div>
+    <div class="bs-stepper-content">
+        <div *ngFor="let s of steps; let i = index;" [id]="s['id']" class="content text-center" role="tabpanel" 
+        [attr.aria-labelledby]="s['id']+'-trigger'" >
+            <angular-editor [id]="'makeStructProject'+s['id']" 
+            [config]="editorConfigMSP"
+            [(ngModel)]="htmlContentMSP"></angular-editor>
+            <button class="btn btn-primary" (click)="stepperPrevious(s, i)" *ngIf="i>0">Previous</button>
+            <button class="btn btn-primary" (click)="stepperNext(s, i)" *ngIf="i<(steps.length-1)">Next</button>
+        </div>
+    </div>
+</div> -->
+
+
+
+
+
+
+
+<!-- <ng-wizard [config]="config" (stepChanged)="stepChanged($event)" *ngIf="steps.length>0">
+
+    <ng-wizard-step [title]="step['name']" [description]="step['name']" [canEnter]="isValidTypeBoolean"
+        [canExit]="isValidFunctionReturnsBoolean.bind(this)" *ngFor="let step of steps;" [state]="stepStates.normal">
+        <span>{{step|json}}</span>
+    </ng-wizard-step>
+</ng-wizard>
+
+<div>
+    <pre>{{steps | json}}</pre>
+</div> -->

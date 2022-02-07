@@ -1,0 +1,171 @@
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
+                    content.</p>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                <button type="button" class="btn btn-success"
+                data-bs-toggle="modal" data-bs-target="#modalCreateStructProject" 
+                (click)="clickCrearStructProject()">Crear Proyecto Paso a Paso</button>
+                
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's
+                    content.</p>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                    data-bs-target="#modalCreateProject" (click)="clickCrearProject()">Crear Proyecto</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6" *ngFor="let pr of projectList;">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{pr['name']}}</h5>
+                <p class="card-text">{{pr['type']}}</p>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                <button type="button" class="btn btn-primary" (click)="editProject(pr)">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6" *ngFor="let pr of structProjectList;">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">{{pr['name']}}</h5>
+                <p class="card-text">{{pr['type']}}</p>
+                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                <button type="button" class="btn btn-primary" (click)="editStructProject(pr)">Editar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalCreateProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Crear Proyecto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" [formGroup]="searchProject" (ngSubmit)="onSubmitSearchProject()">
+                    <div class="col-auto">
+                        <label for="search" class="visually-hidden">Buscar</label>
+                        <input type="text" class="form-control-plaintext" formControlName="search"
+                            placeholder="Buscar....">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-sm-6" *ngFor="let pr of projects;">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{pr['name']}}</h5>
+                                <p class="card-text">{{pr['type']}}</p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                <button type="button" class="btn btn-success" (click)="selectProject(pr)">Seleccionar Proyecto</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form class="row g-3" [formGroup]="project" (ngSubmit)="onSubmitProject()">
+                    <div class="col-auto">
+                        <label *ngIf="projectSelected!=undefined"> <strong>Proyecto Seleccionado </strong> <span >{{projectSelected['name']+' '+projectSelected['type']}}</span> </label>
+                    </div>
+                    <div class="col-auto">
+                        <label for="name" class="visually-hidden">Nombre de Proyecto</label>
+                        <input type="text" class="form-control-plaintext" formControlName="name"
+                            placeholder="Nombre Proyecto">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+                <button #closeModalProject id="closeModalProject" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal 2 -->
+<div class="modal fade" id="modalCreateStructProject" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Crear Proyecto Paso a Paso</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="row g-3" [formGroup]="searchStructProject" (ngSubmit)="onSubmitSearchStructProject()">
+                    <div class="col-auto">
+                        <label for="search" class="visually-hidden">Buscar</label>
+                        <input type="text" class="form-control-plaintext" formControlName="search"
+                            placeholder="Buscar....">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </form>
+                <div class="row">
+                    <div class="col-sm-6" *ngFor="let pr of structProjects;">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{pr['name']}}</h5>
+                                <p class="card-text">{{pr['type']}}</p>
+                                <p class="card-text">{{pr | json}}</p>
+                                <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                                <button type="button" class="btn btn-success" (click)="selectStructProject(pr)">Seleccionar Proyecto</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <form class="row g-3" [formGroup]="structProject" (ngSubmit)="onSubmitStructProject()">
+                    <div class="col-auto">
+                        <label *ngIf="structProjectSelected!=undefined"> <strong>Proyecto Seleccionado </strong> <span >{{structProjectSelected['name']+' '+structProjectSelected['type']}}</span> </label>
+                    </div>
+                    <div class="col-auto">
+                        <label for="name" class="visually-hidden">Nombre de Proyecto</label>
+                        <input type="text" class="form-control-plaintext" formControlName="name"
+                            placeholder="Nombre Proyecto">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-3">
+                            Guardar
+                        </button>
+                    </div>
+                </form>
+                <button #closeModalStructProject id="closeModalStructProject" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,48 @@
+
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">Crear Contenido</h5>
+        <!-- <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6> -->
+
+        <form class="row g-3" [formGroup]="content" (ngSubmit)="onSubmit()">
+            <div class="col-auto">
+                <label for="name" class="visually-hidden">Nombre</label>
+                <input type="text" class="form-control" id="name" formControlName="name"
+                    placeholder="Nombre del Proyecto" autocomplete="on" required>
+            </div>
+            
+            <div class="col-auto">
+                <label for="tags" class="visually-hidden">Tags</label>
+                <select class="form-select" aria-label="Default select example"
+                formControlName="type">
+                    <option value="project">Proyecto de Grado</option>
+                    <option value="tesis">Tesis</option>
+                  </select>
+            </div>
+
+            <div class="col-auto">
+                <label for="tags" class="visually-hidden">Tags</label>
+                <tag-input [separatorKeyCodes]="[32, 9]" formControlName="tags" [placeholder]="'Etiquetas de Proyecto'" [secondaryPlaceholder]="'Etiquetas de Proyecto'">
+                    <tag-input-dropdown [autocompleteItems]="autocomplete" [showDropdownIfEmpty]="true" [dynamicUpdate]="false">
+                    </tag-input-dropdown>
+                </tag-input>
+                <!-- <tag-input [(ngModel)]="items" [separatorKeyCodes]="[32, 9]" formControlName="tags">
+                    <tag-input-dropdown [autocompleteItems]="autocomplete" [showDropdownIfEmpty]="true" [dynamicUpdate]="false">
+                    </tag-input-dropdown>
+                </tag-input> -->
+            </div>
+            <div class="col-auto">
+                <label for="tags" class="visually-hidden">Tags</label>
+                <angular-editor id="editorCrearContenido" [config]="editorConfigCrearContenido"
+                formControlName="content"></angular-editor>
+                <!-- <angular-editor id="editorCrearModeloProyecto" [config]="editorConfigCrearContenido"
+                [(ngModel)]="htmlContentCrearContenido"></angular-editor> -->
+            </div>
+            <div class="col-auto">
+                <button type="button" class="btn btn-secondary">Cancelar</button>
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>  
+
+    </div>
+</div>

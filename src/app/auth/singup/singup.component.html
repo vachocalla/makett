@@ -1,0 +1,31 @@
+<form class="row g-3" [formGroup]="user" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+        <h1>Registrarse</h1>
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Nombre(s)</label>
+        <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nombre(s)" autocomplete="on" required>
+        
+    </div>
+    <div class="mb-3">
+        <label for="lastname" class="form-label">Apellido(s)</label>
+        <input type="text" class="form-control" id="lastname" formControlName="lastname" placeholder="Apellido(s)" autocomplete="on" required>
+    </div>
+    <div class="mb-3">
+        <label for="username" class="form-label">Correo Electronico</label>
+        <input type="email" class="form-control" id="username" formControlName="username" placeholder="Correo Electronico" autocomplete="on" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="visually-hidden">Contraseña</label>
+        <input type="password" class="form-control" id="password" formControlName="password" placeholder="Contraseña" autocomplete="off" required>
+     </div>
+     <div class="mb-3">
+        <label for="cpassword" class="visually-hidden">Confirmar Contraseña</label>
+        <input type="password" class="form-control" id="cpassword" formControlName="cpassword" placeholder="Confirmar Contraseña" autocomplete="off" required>
+     </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-primary mb-3" 
+        [disabled]="!user.valid">Registrarse</button>
+        <span >{{user.status}}</span>
+    </div>
+</form>
